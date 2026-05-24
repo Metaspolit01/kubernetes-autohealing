@@ -1,0 +1,10 @@
+global:
+  resolve_timeout: 5m
+
+route:
+  receiver: 'autohealing-agent'
+
+receivers:
+  - name: 'autohealing-agent'
+    webhook_configs:
+      - url: 'http://autohealing-agent-svc.default.svc.cluster.local:8080/webhook'
