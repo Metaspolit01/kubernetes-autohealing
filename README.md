@@ -1,5 +1,33 @@
 # DevOps Autohealing Agent
 
+**Project Overview**
+Project Name
+      AI-Powered DevOps Incident Auto-Healing Platform
+      
+Objective
+Build an intelligent DevOps platform capable of:
+Monitoring infrastructure
+Detecting failures automatically
+Analyzing logs using AI
+Predicting root causes
+Triggering automated remediation
+Notifying DevOps teams
+The platform acts like an AI Site Reliability Engineer (SRE).
+
+
+**Problem Statement**
+Traditional DevOps monitoring systems only generate alerts. Human engineers still need to:
+Read logs
+Identify issues
+Find root causes
+Execute fixes manually
+This causes:
+Slow incident response
+Downtime
+Human errors
+Infrastructure instability
+The project solves this using AI-driven automated remediation
+
 This is an autonomous autohealing backend that receives Prometheus webhook alerts, uses a Local LLM to decide on a course of action, and executes Kubernetes API calls automatically without human intervention.
 
 ## Architecture
@@ -35,3 +63,34 @@ receivers:
   - url: 'http://<YOUR_API_IP>:8080/webhook'
     send_resolved: false
 ```
+
+##Example Workflow
+
+**Scenario**
+**A Kubernetes pod enters CrashLoopBackOff.**
+Flow
+Step 1 — Detection
+Prometheus detects repeated restarts.
+
+Step 2 — Alert
+AlertManager sends incident event.
+
+Step 3 — AI Analysis
+AI engine analyzes logs:
+Error: Database connection timeout
+AI identifies:
+Root cause: Database unreachable
+Severity: High
+Suggested fix: Restart DB service
+
+Step 4 — Automation
+Automation engine executes:
+```
+kubectl rollout restart deployment/mysql
+```
+
+Step 5 — Recovery
+Pod becomes healthy.
+
+Step 6 — Notification
+Slack notification sent
